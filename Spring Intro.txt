@@ -1,0 +1,196 @@
+What is Spring
+==============
+ Lightweight, open-source framework for enterprise Java applications
+- Provides infrastructure support for developing Java applications
+- Focuses on loose coupling and dependency injection (DI)
+- Makes development faster, easier, and testable
+
+why Spring
+==========
+- Solves problems of tight coupling in Java applications
+- Provides a consistent programming model
+- Integrates easily with other frameworks (Hibernate, JPA, Struts, etc.)
+- Reduces boilerplate code
+- Makes applications modular, maintainable, and testable
+
+Core Features of Spring
+=======================
+IoC Container – Manages beans and dependencies
+- Dependency Injection (DI) – Promotes loose coupling
+- Aspect-Oriented Programming (AOP) – For logging, security
+- Transaction Management – Consistent model across DBs
+- Spring MVC – Web framework for building web apps
+- Data Access – JDBC & ORM support
+
+Advantages of Spring
+====================
+Lightweight and fast
+- Promotes best practices (DI, AOP, modularity)
+- Reduces complexity in enterprise applications
+- Flexible and integrates with other technologies
+- Rich ecosystem (Spring Boot, Spring Data, Spring Security, Spring Cloud)
+
+Spring Ecosystem
+================
+Spring Core – Core container, DI, Beans
+- Spring AOP – Aspect-oriented programming
+- Spring MVC – Web framework
+- Spring Data – Simplified data access
+- Spring Boot – Rapid application development
+- Spring Security – Authentication & authorization
+- Spring Cloud – Microservices & cloud-native apps
+
+1. Spring Core
+--------------
+•Purpose: Provides the fundamental features of the Spring Framework (IoC/DI).
+•Components:
+•Core: Base classes for IoC and Dependency Injection.
+•Beans: Configures and manages beans in Spring.
+•Context: Provides a way to access beans in an application.
+•JNDI / Utils: Helper classes for JNDI access and utility functions.
+•Where used:
+•At the heart of every Spring application.
+•For defining beans and their relationships (via XML, annotations, or Java config).
+
+2. Spring JDBC (and DAO Support)
+--------------------------------
+•Purpose: Simplifies database interaction.
+•Components:
+•DAO: Provides standard Data Access Object support.
+•JDBC: Reduces boilerplate JDBC code (manages connection, exceptions, etc.).
+•Where used:
+•Any application interacting with relational databases (e.g., MySQL, Oracle, PostgreSQL).
+Enterprise apps requiring transaction management.
+
+3. Spring Context
+-----------------
+•Purpose: Provides enterprise-level services built on top of Core and Beans.
+•Components:
+•AOP: Aspect-Oriented Programming for cross-cutting concerns (logging, security).
+•ORM: Integration with Hibernate, JPA, MyBatis.
+•Transaction: Declarative transaction management.
+•Validation: Validation framework for objects.
+•Where used:
+•Large applications requiring modularization, ORM frameworks, and enterprise-level features.
+Helps in separating concerns like logging, transactions, etc.
+
+4. Spring Web
+-------------
+•Purpose: Provides web application support.
+•Components:
+•Web: Web context, multipart support, file upload.
+•UI: Integration with view technologies (JSP, Thymeleaf, FreeMarker).
+•Remoting: Remote communication with other services.
+•Where used:
+•Building traditional MVC web applications.
+Creating REST APIs and service communication
+
+5. Spring EJB (Spring ejbimpl)
+------------------------------
+•Purpose: Provides integration with Enterprise Java Beans (EJB).
+•Where used:
+•If you have a legacy EJB system and want to integrate it into a Spring-based application.
+•Migration projects from EJB to Spring.
+
+Summary:
+--------
+•Spring Core → Base of everything (IoC, DI).
+•Spring JDBC/DAO → Database access layer.
+•Spring Context → Enterprise-level features (AOP, ORM, Transactions).
+•Spring Web → Web applications, MVC, REST.
+•Spring EJB → Legacy EJB integration.
+
+Conclusion
+==========
+- Spring = Lightweight, modular, powerful framework
+- Provides everything from basic DI to cloud-native apps
+- Reduces development effort while increasing productivity
+- Widely adopted in enterprise & microservice-based applications
+
+Spring History
+==============
+Home : interface
+Author : Mr Rod Janson
+Objective : To Simplify and Accelerate the Complete Enterprise Applications
+type: open source software.
+initial Version: spring 1.0(2004)
+used version: spring 5.0x(2014)
+latest version: spring 7.0x
+
+IoC (Inversion of Control)
+--------------------------
+• IoC is a design principle where the control of object creation and dependency management is transferred from the program to the Spring IoC container.
+
+• Helps achieve loose coupling between application components.
+
+• Implemented in Spring through Dependency Injection (DI).
+
+Steps to prepare Spring applications
+====================================
+1. prepare persistence class or pojo class
+   ---------------------------------------
+	in the src folder create a package called bean package then inside that create a 	class.
+2. Prepare Spring Configuration file
+   ---------------------------------
+   Spring configuration file is an xml file, it must have all the bean classes configuration details which are required by the container in order to create bean Objects and in order to supply that bean Objects to the application.
+
+<bean>
+<bean id="employee" class="com.codegnan.Employee">
+<property name="----" value="----">
+</bean>
+</beans>
+
+where beans is a root tag it includes a number of bean configurations.
+where <bean> tag Is able to provide single bean class configuration. 
+where id attribute in<bean> tag will provide identity for the bean Object.
+where class attribute will take the fully qualified name of the bean class.
+
+3. prepare the client application.
+   -------------------------------
+   the main intention of test application is 
+
+	1. create a Container
+	  -------------------
+          The main purpose of container is to create bean objects to manage bean objects along with their identities.
+
+          Spring framework has provided the following two types of IOC (inverse of containers)containers.
+
+          1. BeanFactory (depricated)
+		basic IOC Container
+		Lazy initialization(beans created only when requested)
+		Lightweight, not commonly used in modern apps.
+
+          2. ApplicationContext
+		Advanced container with enterprise features.
+		Eager initialization (beans created at startup).
+		Support internationalization, event propagation and AOP
+		Most commonly used container in spring applications.
+
+	   To Represent ApplicationContext containers SpringFramework has provided a predefined interface in the form of applicationContext and spring framework has provided an       	  	   implementation class or ApplicationContext in the form of ClassPathXmlApplicationContext.
+
+	   to create ClassPathXmlApplicationContext Object we have to use the following contructor.
+ 
+	   public ClassPathXmlApplicatonContext(Spring configureFilePath)
+
+	   ex:
+           ApplicationContext context = new ClassPathXmlApplicationContext("SpringConfig.xml");
+
+           When we create a container Object like Above Container will perform the following Actions.
+           1. identify the Spring ConfigureFile
+           2. when spring configuration is identified container will perform loading configuration file parsing configuration file and reading data from configuration.
+	   3. after getting the data from ConfigurationFile container will recognize all the bean configuration and container will create Objects for all the bean classes which we  		   configure in the spring configuration file
+	   4. after creating bean Objects container will manage all the bean Objects along with their identity values.
+
+
+	2. Get a Bean Object from container
+	   --------------------------------
+	   to get a particular bean object from container we have to use the following method from applicationContext.
+
+           public Object getBean(String idValue)
+
+           ex:
+	   Person person = context.getBean("person");
+	3. Accesses Business methods of the Respective Bean.
+	   -------------------------------------------------
+	   String msg = hello.sayHello();
+	   System.out.println(msg);
